@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      #course {
+        border: 1px solid black;
+        padding: 10px;
+      }
+      #courseDetails {
+        display: grid;
+        margin-top: 20px;
+        grid-template-columns: repeat(3, 300px);
+        text-align: center;
+        gap: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="search" placeholder="search" />
+    <button onclick="search_data()">search</button>
+
+    <div id="courseDetails"></div>
+    <div id="nodata"></div>
+
+    <script>
+      console.log("hi");
+
+      let product = [
+        { course: "React", id: 1, amount: 30000 },
+        { course: "Js", id: 2, amount: 40000 },
+        { course: "Css", id: 3, amount: 50000 },
+      ];
+
+      document.getElementById("courseDetails").innerHTML =
+        product &&
+        product
+          ?.map((item) => {
+            console.log(item);
+
+            return `
+              <div id="course">
+                <div>${item.course}</div>
+                <div>₹${item.amount}</div>
+
+
+
+                </div>
+
+            `;
+          })
+          .join("");
+
+      function search_data() {
+        let searchData = document.getElementById("search").value;
+        console.log(searchData);
+
+        let storeData = [];
+
+        storeData = product.filter((v) => {
+          return v.course.toLowerCase().includes(searchData.toLowerCase());
+        });
+        console.log(storeData);
+
+        if (storeData.length) {
+          document.getElementById("courseDetails").style.color = "black";
+          document.getElementById("courseDetails").innerHTML =
+            storeData &&
+            storeData
+              ?.map((item) => {
+                console.log(item);
+
+                return `
+              <div id="course">
+                <div>${item.course}</div>
+                <div>₹${item.amount}</div>
+
+
+
+                </div>
+
+            `;
+              })
+              .join("");
+        } else {
+          document.getElementById("courseDetails").innerHTML =
+            " !No data found";
+          document.getElementById("courseDetails").style.color = "red";
+        }
+      }
+    </script>
+  </body>
+</html>
